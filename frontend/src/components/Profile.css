@@ -1,0 +1,38 @@
+/* Profile.css */
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .profile-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-container form div {
+    margin-bottom: 10px;
+  }
+  
+  .profile-container form label {
+    margin-bottom: 5px;
+  }
+  
+  .profile-container form input {
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .profile-container form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-container form button:hover {
+    background-color: #0056b3;
+  }
+  
