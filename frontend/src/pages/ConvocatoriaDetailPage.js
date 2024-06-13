@@ -16,3 +16,4 @@ const ConvocatoriaDetailPage = ({ token }) => {
 };
 
 export default ConvocatoriaDetailPage;
+ 

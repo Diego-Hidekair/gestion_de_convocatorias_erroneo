@@ -21,6 +21,8 @@ const Documento = sequelize.define('Documento', {
     type: DataTypes.ENUM('pendiente', 'aprobado', 'rechazado'),
     allowNull: false
   },
+
+  ///////////////////////////////
   convocatoria_id: {
     type: DataTypes.INTEGER,
     references: {
@@ -36,14 +38,10 @@ const Documento = sequelize.define('Documento', {
       key: 'id'
     },
     onDelete: 'SET NULL'
-  },
-  filePath: {
-    type: DataTypes.STRING,
-    allowNull: false
   }
 }, {
-  tableName: 'documentos'
-  // timestamps: false,  // Agregar si es necesario
+  tableName: 'documentos',
+  ///timestamps: false,  //agregar si lo veo necesario
 });
 
 module.exports = Documento;

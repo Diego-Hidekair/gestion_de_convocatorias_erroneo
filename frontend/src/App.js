@@ -9,6 +9,8 @@ import ConvocatoriaForm from './components/ConvocatoriaForm';
 import ConvocatoriasList from './components/ConvocatoriasList';
 import ConvocatoriaDetailPage from './pages/ConvocatoriaDetailPage';
 import DocumentoDetailPage from './pages/DocumentoDetailPage';
+import DocumentoFormPage from './pages/DocumentoFormPage'; 
+import './styles/global.css';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -27,6 +29,8 @@ function App() {
           <Route path="/convocatorias/:id" element={isAuthenticated ? <ConvocatoriaDetailPage token={token} /> : <Navigate to="/login" />} />
           <Route path="/convocatorias/editar/:id" element={isAuthenticated ? <ConvocatoriaForm token={token} /> : <Navigate to="/login" />} />
           <Route path="/documentos/:id" element={isAuthenticated ? <DocumentoDetailPage token={token} /> : <Navigate to="/login" />} />
+          <Route path="/documentos/nuevo" element={isAuthenticated ? <DocumentoFormPage token={token} /> : <Navigate to="/login" />} />
+          <Route path="/documentos/editar/:id" element={isAuthenticated ? <DocumentoFormPage token={token} /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>

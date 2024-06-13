@@ -1,33 +1,43 @@
-// backend/models/index.js
-const Usuario = require('./Usuario');
-const Convocatoria = require('./Convocatoria');
-const Documento = require('./Documento');
-const FirmaDigital = require('./FirmaDigital');
-const HistorialDocumento = require('./HistorialDocumento');
+'use strict';
 
-// Relaciones
-Convocatoria.hasMany(Documento, { foreignKey: 'convocatoria_id' });
-Documento.belongsTo(Convocatoria, { foreignKey: 'convocatoria_id' });
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const process = require('process');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = {};
 
-Documento.belongsTo(Usuario, { foreignKey: 'usuario_id' });
-Usuario.hasMany(Documento, { foreignKey: 'usuario_id' });
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
-FirmaDigital.belongsTo(Documento, { foreignKey: 'documento_id' });
-Documento.hasMany(FirmaDigital, { foreignKey: 'documento_id' });
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (
+      file.indexOf('.') !== 0 &&
+      file !== basename &&
+      file.slice(-3) === '.js' &&
+      file.indexOf('.test.js') === -1
+    );
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 
-FirmaDigital.belongsTo(Usuario, { foreignKey: 'usuario_id' });
-Usuario.hasMany(FirmaDigital, { foreignKey: 'usuario_id' });
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
-HistorialDocumento.belongsTo(Documento, { foreignKey: 'documento_id' });
-Documento.hasMany(HistorialDocumento, { foreignKey: 'documento_id' });
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-HistorialDocumento.belongsTo(Usuario, { foreignKey: 'usuario_id' });
-Usuario.hasMany(HistorialDocumento, { foreignKey: 'usuario_id' });
-
-module.exports = {
-  Usuario,
-  Convocatoria,
-  Documento,
-  FirmaDigital,
-  HistorialDocumento,
-};
+module.exports = db;

@@ -1,6 +1,7 @@
 // src/components/Navbar/Navbar.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ const Navbar = () => {
             <li><Link to="/profile">Perfil</Link></li>
             <li><Link to="/convocatorias">Convocatorias</Link></li>
             <li><Link to="/convocatorias/nueva">Nueva Convocatoria</Link></li>
-            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+            <li><Link to="/documentos">Documentos</Link></li>
+            <li><Link to="/documentos/nuevo">Nuevo Documento</Link></li>
             <li><button onClick={handleLogout}>Cerrar sesión</button></li>
           </>
         ) : (
